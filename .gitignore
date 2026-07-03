@@ -1,0 +1,21 @@
+# NetBeans
+/nbproject/private/
+/build/
+/dist/
+/nbbuild/
+/nbdist/
+/nb-configuration.xml
+/.nb-gradle
+
+# Java
+*.class
+*.jar
+*.war
+
+# Configuración local (IP, puerto de la BD, etc.)
+config.properties
+*.local.properties
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
