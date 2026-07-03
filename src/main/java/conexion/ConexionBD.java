@@ -15,8 +15,8 @@ public class ConexionBD {
     //Definir ruta fija al archivo de configuración de la BD
     private static final String RUTA_CONFIG = "config/db.properties";
     //Definir Usuario y Contraseña de la BD 
-    private static final String USUARIO_FIJO = "invstack_db";
-    private static final String PASSWORD_FIJO = "invstack_db";
+    private static final String USUARIO = "invstack_db";
+    private static final String CONTRASENA = "invstack_db";
 
     private static ConexionBD instancia;
     private Connection conexion;
@@ -48,7 +48,7 @@ public class ConexionBD {
                 throw new SQLException("No se encontró el driver de MySQL (mysql-connector-j). ", e);
             }
 
-            conexion = DriverManager.getConnection(url, USUARIO_FIJO, PASSWORD_FIJO);
+            conexion = DriverManager.getConnection(url, USUARIO, CONTRASENA);
         }
         return conexion;
     }

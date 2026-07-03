@@ -1,8 +1,7 @@
 package com.devup.invstack;
 
 /**
- *
- * @author kidne
+ * 
  */
 public class Invstack {
 
