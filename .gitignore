@@ -19,3 +19,7 @@ config.properties
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+# Maven
+/target/
+**/target/
