@@ -58,10 +58,25 @@ public class UsuarioDAO {
             }
         }
     }
+    
+    //Autentica usuario por nombre y contrasena, retorna nivelAcceso
+    public String autenticarUsuario(String nombre, String contrasena) throws SQLException {
+        String sql = "SELECT nivelAcceso FROM usuario WHERE nombre = ? AND contrasena = ?";
  
-    /**
-     * Actualiza nombre, contraseña y nivelAcceso de un usuario existente.
-     */
+        Connection con = ConexionBD.getInstancia().getConexion();
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, nombre);
+            ps.setString(2, contrasena);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("nivelAcceso");
+                }
+            }
+        }
+        return null;
+    }
+ 
+    //Actualiza nombre, contraseña y nivelAcceso de un usuario existente.
     public void actualizarUsuario(int id, String nombre, String contrasena, String nivelAcceso) throws SQLException {
         if (existeOtroUsuarioConNombre(nombre, id)) {
             throw new SQLException("Ya existe otro usuario con el nombre '" + nombre + "'.");
