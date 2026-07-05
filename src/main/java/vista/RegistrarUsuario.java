@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista;
 
 /**
- *
- * @author a3524
+ * Interfaz para realizar registros en la tabla 'usuario'
  */
 public class RegistrarUsuario extends javax.swing.JFrame {
     
