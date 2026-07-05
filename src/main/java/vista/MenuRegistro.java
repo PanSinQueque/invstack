@@ -235,6 +235,7 @@ public class MenuRegistro extends javax.swing.JFrame {
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         new RegistrarUsuario().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jPanel3MouseClicked
 
     /**

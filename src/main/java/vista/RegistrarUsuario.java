@@ -291,6 +291,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                     "Usuario registrado correctamente.",
                     "Listo",
                     javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            new MenuRegistro().setVisible(true);
             this.dispose();
         } catch (java.sql.SQLException ex) {
             logger.log(java.util.logging.Level.SEVERE, "Error al registrar usuario", ex);
