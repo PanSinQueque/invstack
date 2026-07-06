@@ -20,6 +20,16 @@ public class ProductoDAO {
     public void registrarProducto(String marca, String modelo, String pieza, String sku,
             int stock, int stockMinimo, String calidad,
             BigDecimal precioMayoreo, BigDecimal precioMenudeo) throws SQLException {
+
+        if (stock < 0 || stockMinimo < 0) {
+            throw new SQLException("El stock y el stock mínimo no pueden ser negativos.");
+        }
+        if (precioMayoreo.signum() < 0 || precioMenudeo.signum() < 0) {
+            throw new SQLException("Los precios no pueden ser negativos.");
+        }
+        if (existeSku(sku)) {
+            throw new SQLException("Ya existe un producto con el SKU '" + sku + "'.");
+        }
         
         int idMarca = obtenerOCrearMarca(marca);
         int idModelo = obtenerOCrearModelo(modelo, idMarca);
@@ -42,6 +52,18 @@ public class ProductoDAO {
             ps.executeUpdate();
         }
     }
+
+    private boolean existeSku(String sku) throws SQLException {
+        String sql = "SELECT id FROM inventario WHERE sku = ?";
+        Connection con = ConexionBD.getInstancia().getConexion();
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, sku);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
 
     //Busca una marca por nombre; si no existe, la crea. Devuelve su id.
     private int obtenerOCrearMarca(String nombre) throws SQLException {
