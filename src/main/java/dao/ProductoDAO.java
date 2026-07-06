@@ -12,18 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Acceso a datos para el alta de productos. Maneja 'marca', 'modelo' y
- * 'pieza' con lógica "buscar o crear" (se reutiliza el registro si ya
- * existe por nombre dentro de su jerarquía, en vez de duplicarlo en cada
- * alta), y finalmente inserta el renglón correspondiente en 'inventario'.
+ * Operaciones de acceso a datos para las tablas 'marca' 'modelo' 'pieza' 'inventario'.
  */
 public class ProductoDAO {
 
-    /**
-     * Registra un producto completo: encuentra o crea la marca, el modelo
-     * (dentro de esa marca) y la pieza (dentro de ese modelo), y luego
-     * inserta el renglón de inventario apuntando a esa pieza.
-     */
+    //Registra un producto completo
     public void registrarProducto(String marca, String modelo, String pieza, String sku,
             int stock, int stockMinimo, String calidad,
             BigDecimal precioMayoreo, BigDecimal precioMenudeo) throws SQLException {
@@ -50,9 +43,7 @@ public class ProductoDAO {
         }
     }
 
-    /**
-     * Busca una marca por nombre; si no existe, la crea. Devuelve su id.
-     */
+    //Busca una marca por nombre; si no existe, la crea. Devuelve su id.
     private int obtenerOCrearMarca(String nombre) throws SQLException {
         Connection con = ConexionBD.getInstancia().getConexion();
 
@@ -77,11 +68,7 @@ public class ProductoDAO {
         }
     }
 
-    /**
-     * Busca un modelo por nombre dentro de una marca (acotado por idMarca
-     * para no confundir modelos homónimos de marcas distintas); si no
-     * existe, lo crea.
-     */
+    // Busca un modelo por nombre dentro de una marca     
     private int obtenerOCrearModelo(String nombre, int idMarca) throws SQLException {
         Connection con = ConexionBD.getInstancia().getConexion();
 
@@ -108,9 +95,7 @@ public class ProductoDAO {
         }
     }
 
-    /**
-     * Busca una pieza por nombre dentro de un modelo; si no existe, la crea.
-     */
+    //Busca una pieza por nombre dentro de un modelo; si no existe, la crea. 
     private int obtenerOCrearPieza(String nombre, int idModelo) throws SQLException {
         Connection con = ConexionBD.getInstancia().getConexion();
 
@@ -139,9 +124,7 @@ public class ProductoDAO {
 
     /**
      * Devuelve los renglones para poblar la tabla de la pantalla
-     * Inventario: Marca, Modelo, Pieza, SKU, Stock, Precio Mayoreo,
-     * Precio Menudeo, Estado (mapeado aquí a 'calidad' — confirmar si es
-     * la lectura correcta de esa columna).
+     * Inventario: Marca, Modelo, Pieza, SKU, Stock, Precio Mayoreo, Precio Menudeo, Estado.
      */
     public List<Object[]> listarInventario() throws SQLException {
         String sql = "SELECT ma.nombre AS marca, mo.nombre AS modelo, pz.nombre AS pieza, "
