@@ -348,8 +348,26 @@ public class RegistrarProducto extends javax.swing.JFrame {
             precioMayoreo = new java.math.BigDecimal(jTextFieldPrecioMayoreo.getText().trim());
             precioMenudeo = new java.math.BigDecimal(jTextFieldPrecioMenudeo.getText().trim());
         } catch (NumberFormatException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Stock, Stock Minimo y los precios deben ser numéricos.", "Datos inválidos",
-            javax.swing.JOptionPane.WARNING_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Stock, Stock Minimo y los precios deben ser numéricos.",
+                    "Datos inválidos",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+ 
+        if (stock < 0 || stockMinimo < 0) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Stock y Stock Minimo no pueden ser negativos.",
+                    "Datos inválidos",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+ 
+        if (precioMayoreo.signum() < 0 || precioMenudeo.signum() < 0) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Los precios no pueden ser negativos.",
+                    "Datos inválidos",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
 
