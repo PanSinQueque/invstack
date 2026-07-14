@@ -147,12 +147,7 @@ public Login() {
         intentarInicioSesion();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * Valida los campos, consulta la base de datos a través de
-     * UsuarioDAO.autenticarUsuario(...) y, según el nivelAcceso que venga
-     * de la BD (nunca de lo que la persona elija en pantalla), abre
-     * MenuPrincipal (ADMIN) o MenuUser (USER).
-     */
+    //
     private void intentarInicioSesion() {
         String nombreUsuario = jTextField1.getText().trim();
         String contrasena = new String(jPasswordField1.getPassword());
@@ -167,9 +162,9 @@ public Login() {
 
         dao.UsuarioDAO usuarioDAO = new dao.UsuarioDAO();
         try {
-            String nivelAcceso = usuarioDAO.autenticarUsuario(nombreUsuario, contrasena);
+            dao.UsuarioDAO.ResultadoLogin resultado = usuarioDAO.autenticarUsuario(nombreUsuario, contrasena);
 
-            if (nivelAcceso == null) {
+            if (resultado == null) {
                 javax.swing.JOptionPane.showMessageDialog(this,
                         "Usuario o contraseña incorrectos.",
                         "Acceso denegado",
@@ -178,7 +173,9 @@ public Login() {
                 return;
             }
 
-            if ("ADMIN".equals(nivelAcceso)) {
+            sesion.Sesion.iniciarSesion(resultado.id, nombreUsuario, resultado.nivelAcceso);
+
+            if (resultado.nivelAcceso.equals("ADMIN")) {
                 new MenuAdministrador().setVisible(true);
             } else {
                 new MenuUsuario().setVisible(true);

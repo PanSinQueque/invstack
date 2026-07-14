@@ -59,9 +59,19 @@ public class UsuarioDAO {
         }
     }
     
+    public static class ResultadoLogin {
+        public final int id;
+        public final String nivelAcceso;
+ 
+        public ResultadoLogin(int id, String nivelAcceso) {
+            this.id = id;
+            this.nivelAcceso = nivelAcceso;
+        }
+    }    
+    
     //Autentica usuario por nombre y contrasena, retorna nivelAcceso
-    public String autenticarUsuario(String nombre, String contrasena) throws SQLException {
-        String sql = "SELECT nivelAcceso FROM usuario WHERE nombre = ? AND contrasena = ?";
+    public ResultadoLogin autenticarUsuario(String nombre, String contrasena) throws SQLException {
+        String sql = "SELECT id, nivelAcceso FROM usuario WHERE nombre = ? AND contrasena = ?";
  
         Connection con = ConexionBD.getInstancia().getConexion();
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -69,7 +79,7 @@ public class UsuarioDAO {
             ps.setString(2, contrasena);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getString("nivelAcceso");
+                    return new ResultadoLogin(rs.getInt("id"), rs.getString("nivelAcceso"));
                 }
             }
         }
